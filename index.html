@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AUTORA — Aracının değerini veriye dayalı tahmin et.">
+  <title>AUTORA — Know Your Car's Worth</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#141c31;--text:#f5f7fb;--muted:#aab5ca;--accent:#7c9cff;--line:#293550}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 10%,#1c2c50 0,transparent 32%),var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,Arial,sans-serif}
+    .wrap{max-width:1100px;margin:auto;padding:24px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .logo{font-size:26px;font-weight:850;letter-spacing:3px}.lang,button{border:1px solid var(--line);background:#1b2741;color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer}
+    .hero{padding:90px 0 55px;max-width:760px}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase}
+    h1{font-size:clamp(42px,7vw,76px);line-height:1.04;margin:14px 0 22px;letter-spacing:-2px}
+    p{color:var(--muted)}.hero p{font-size:19px;max-width:650px}.cta{display:inline-block;margin-top:16px;background:var(--accent);color:#081020;text-decoration:none;font-weight:800;padding:13px 20px;border-radius:12px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:25px 0 70px}.card{background:rgba(20,28,49,.92);border:1px solid var(--line);padding:25px;border-radius:20px}
+    h2{margin-top:0;font-size:25px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{display:block;color:var(--muted);font-size:13px;margin-bottom:5px}input,select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0c1427;color:var(--text)}
+    .wide{grid-column:1/-1}.result{font-size:30px;font-weight:850;margin-top:18px}.small{font-size:12px;color:#8492ad}
+    footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:13px}
+    @media(max-width:720px){.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.hero{padding-top:60px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav"><div class="logo">AUTORA</div><button class="lang" id="langBtn">English</button></nav>
+  <header class="hero">
+    <div class="eyebrow" data-tr="Akıllı araç değerleme" data-en="Smart vehicle valuation">Akıllı araç değerleme</div>
+    <h1 data-tr="Aracının gerçek değerini bil." data-en="Know your car’s worth.">Aracının gerçek değerini bil.</h1>
+    <p data-tr="AUTORA, araç piyasasını daha anlaşılır hale getirmek için tasarlanan yeni nesil veri ve analiz platformudur." data-en="AUTORA is a next-generation data and analytics platform designed to make the vehicle market easier to understand.">AUTORA, araç piyasasını daha anlaşılır hale getirmek için tasarlanan yeni nesil veri ve analiz platformudur.</p>
+    <a class="cta" href="#valuation" data-tr="Demo değerlemeyi dene" data-en="Try the valuation demo">Demo değerlemeyi dene</a>
+  </header>
+  <section class="grid">
+    <div class="card">
+      <h2 data-tr="Veriye dayalı kararlar" data-en="Data-driven decisions">Veriye dayalı kararlar</h2>
+      <p data-tr="Araç bilgilerini gir, örnek değerleme deneyimini gör. AUTORA'nın hedefi; karşılaştırılabilir ilanlar, piyasa eğilimleri ve güven aralığıyla daha bilinçli karar vermeni sağlamak." data-en="Enter vehicle details and explore a sample valuation. AUTORA aims to support better decisions with comparable listings, market trends and confidence ranges.">Araç bilgilerini gir, örnek değerleme deneyimini gör. AUTORA'nın hedefi; karşılaştırılabilir ilanlar, piyasa eğilimleri ve güven aralığıyla daha bilinçli karar vermeni sağlamak.</p>
+    </div>
+    <div class="card" id="valuation">
+      <h2 data-tr="Araç değerleme demosu" data-en="Vehicle valuation demo">Araç değerleme demosu</h2>
+      <div class="fields">
+        <div><label data-tr="Marka" data-en="Make">Marka</label><input id="make" value="Toyota"></div>
+        <div><label data-tr="Model" data-en="Model">Model</label><input id="model" value="Corolla"></div>
+        <div><label data-tr="Model yılı" data-en="Year">Model yılı</label><input id="year" type="number" value="2020"></div>
+        <div><label data-tr="Kilometre" data-en="Mileage">Kilometre</label><input id="km" type="number" value="80000"></div>
+        <div class="wide"><button id="calc" data-tr="Örnek değeri hesapla" data-en="Calculate sample value">Örnek değeri hesapla</button></div>
+      </div>
+      <div class="result" id="result">—</div>
+      <div class="small" data-tr="Bu yalnızca arayüz demosudur; gerçek piyasa verisi veya ekspertiz sonucu değildir." data-en="This is an interface demo only; it is not live market data or a professional appraisal.">Bu yalnızca arayüz demosudur; gerçek piyasa verisi veya ekspertiz sonucu değildir.</div>
+    </div>
+  </section>
+  <footer>© <span id="yearNow"></span> AUTORA. <span data-tr="Tüm hakları saklıdır." data-en="All rights reserved.">Tüm hakları saklıdır.</span></footer>
+</div>
+<script>
+let lang='tr';
+document.getElementById('langBtn').onclick=()=>{
+  lang=lang==='tr'?'en':'tr';document.documentElement.lang=lang;
+  document.querySelectorAll('[data-tr]').forEach(el=>el.textContent=el.dataset[lang]);
+  document.getElementById('langBtn').textContent=lang==='tr'?'English':'Türkçe';
+};
+document.getElementById('yearNow').textContent=new Date().getFullYear();
+document.getElementById('calc').onclick=()=>{
+  const year=Number(document.getElementById('year').value)||2020;
+  const km=Number(document.getElementById('km').value)||80000;
+  const age=Math.max(0,new Date().getFullYear()-year);
+  const estimate=Math.max(150000,Math.round((1250000-age*52000-(km/10000)*9500)/1000)*1000);
+  document.getElementById('result').textContent=new Intl.NumberFormat(lang==='tr'?'tr-TR':'en-US',{style:'currency',currency:lang==='tr'?'TRY':'USD',maximumFractionDigits:0}).format(lang==='tr'?estimate:estimate/35);
+};
+</script>
+</body>
+</html>
